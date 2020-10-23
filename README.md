@@ -1,6 +1,19 @@
 ## Clinic front in React using Redux and React Material 
 
-We also have a pro version of this product which bundles even more pages and components if you want to save more time and design efforts :)
+A complete app done in React using Redux to manage state. 
+
+After sign in, you have access to:
+
+- Treatments.
+- Patients.
+- Treatment applied to patients. 
+
+Backend can be found in this [repo](https://material-ui.com/). 
+
+## Soon in next releases:
+
+- Appointments related to patient treatments. 
+- Schedule showing appointments per day, week, ...
 
 ## Quick start
 
@@ -14,8 +27,8 @@ We also have a pro version of this product which bundles even more pages and com
 
 ## Documentation
 
-The documentation for the React Material Kit is can be found [here](https://material-ui.com?ref=devias-io).
+The documentation for the React Material is [here](https://material-ui.com/).
 
 ## License
 
-- Licensed under MIT (https://github.com/devias-io/react-material-dashboard/blob/master/LICENSE.md)
+- Licensed under MIT
