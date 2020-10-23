@@ -8,12 +8,13 @@ After sign in, you have access to:
 - Patients.
 - Treatment applied to patients. 
 
-Backend can be found in this [repo](https://material-ui.com/). 
+Backend can be found in this [repo](https://github.com/jahs-es/clinic-backend). 
 
 ## Soon in next releases:
 
 - Appointments related to patient treatments. 
 - Schedule showing appointments per day, week, ...
+- Sign up and forgot password flow. 
 
 ## Quick start
 
