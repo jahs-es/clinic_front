@@ -3,21 +3,17 @@ import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField } 
 import { useDispatch, useSelector } from 'react-redux'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import PropTypes from 'prop-types'
 import { createPatient, updatePatient } from '../../store/modules/patient/actions/patientAction'
 
 const PatientDetail = ({ entity, closeDialog }) => {
   const dispatch = useDispatch()
-  const { isSaving } = useSelector((state) => state.PatientsState)
-
-  const onUpdateSuccess = () => {
-  }
+  const { isLoading } = useSelector((state) => state.PatientsState)
 
   const handleSave = (e) => {
     if (e.id === undefined) {
       dispatch(createPatient(e))
     } else {
-      dispatch(updatePatient(e, onUpdateSuccess))
+      dispatch(updatePatient(e))
     }
     closeDialog()
   }
@@ -36,29 +32,27 @@ const PatientDetail = ({ entity, closeDialog }) => {
         email: entity.email,
         phone: entity.phone
       }}
-
       validationSchema={Yup.object().shape({
         email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
         name: Yup.string().max(255).required('Name is required'),
         phone: Yup.string().max(255).required('Phone is required')
       })}
-
       onSubmit={(values) => {
         handleSave(values)
       }}
     >
       {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          touched,
-          values
-        }) => (
+        errors,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        touched,
+        values
+      }) => (
         <form onSubmit={handleSubmit}>
           <Card>
             <CardHeader
-              subheader="Valores del paciente"
+              subheader="Indique los datos y pulse Guardar:"
               title="Paciente"
             />
             <Divider />
@@ -69,7 +63,7 @@ const PatientDetail = ({ entity, closeDialog }) => {
                     error={Boolean(touched.name && errors.name)}
                     fullWidth
                     helperText={touched.name && errors.name}
-                    label="Name"
+                    label="Nombre"
                     margin="normal"
                     name="name"
                     onBlur={handleBlur}
@@ -86,7 +80,7 @@ const PatientDetail = ({ entity, closeDialog }) => {
                     error={Boolean(touched.address && errors.address)}
                     fullWidth
                     helperText={touched.address && errors.address}
-                    label="Address"
+                    label="Dirección"
                     margin="normal"
                     name="address"
                     onBlur={handleBlur}
@@ -101,7 +95,7 @@ const PatientDetail = ({ entity, closeDialog }) => {
                     error={Boolean(touched.email && errors.email)}
                     fullWidth
                     helperText={touched.email && errors.email}
-                    label="Email Address"
+                    label="Email"
                     margin="normal"
                     name="email"
                     onBlur={handleBlur}
@@ -117,7 +111,7 @@ const PatientDetail = ({ entity, closeDialog }) => {
                     error={Boolean(touched.phone && errors.phone)}
                     fullWidth
                     helperText={touched.phone && errors.phone}
-                    label="Phone"
+                    label="Teléfono"
                     margin="normal"
                     name="phone"
                     onBlur={handleBlur}
@@ -133,19 +127,19 @@ const PatientDetail = ({ entity, closeDialog }) => {
             <Box justifyContent="space-between" display="flex" p={2}>
               <Button
                 color="primary"
-                disabled={isSaving}
+                disabled={isLoading}
                 variant="contained"
                 onClick={handleCancel}
               >
-                Cancel
+                Cancelar
               </Button>
               <Button
                 color="primary"
-                disabled={isSaving}
+                disabled={isLoading}
                 type="submit"
                 variant="contained"
               >
-                Save
+                Guardar
               </Button>
             </Box>
           </Card>
@@ -153,11 +147,6 @@ const PatientDetail = ({ entity, closeDialog }) => {
       )}
     </Formik>
   )
-}
-
-PatientDetail.propTypes = {
-  entity: PropTypes.object.isRequired,
-  closeDialog: PropTypes.func.isRequired
 }
 
 export default PatientDetail

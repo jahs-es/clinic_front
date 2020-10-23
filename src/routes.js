@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import DashboardLayout from 'src/layouts/DashboardLayout'
 import AccountView from 'src/components/account/AccountView'
 import PatientListView from 'src/components/patient/PatientListView'
-import DashboardView from 'src/components/dashboard/DashboardView'
+import DashboardView from 'src/components/patient-treatment'
 import { useSelector } from 'react-redux'
 import LoginView from './components/auth/views/LoginView'
 import RegisterView from './components/auth/views/RegisterView'
@@ -20,7 +20,7 @@ const AppRoutes = () => {
       <Route path="app" element={<DashboardLayout />}>
         <SecuredRoute isAuth={currentState.isAuthenticated} path="patients" component={PatientListView} redirectTo="/login" />
         <SecuredRoute isAuth={currentState.isAuthenticated} path="treatments" component={TreatmentListView} redirectTo="/login" />
-        <SecuredRoute isAuth={currentState.isAuthenticated} path="dashboard" component={DashboardView} redirectTo="/login" />
+        <SecuredRoute isAuth={currentState.isAuthenticated} path="patient-treatments" component={DashboardView} redirectTo="/login" />
         <SecuredRoute isAuth={currentState.isAuthenticated} path="account" component={AccountView} redirectTo="/login" />
         <Route path="*" element={<Navigate to="/404" />} />
       </Route>
@@ -28,7 +28,7 @@ const AppRoutes = () => {
         <Route path="login" element={<LoginView />} />
         <Route path="register" element={<RegisterView />} />
         <Route path="404" element={<NotFoundView />} />
-        <Route path="/" element={<Navigate to="/app/dashboard" />} />
+        <Route path="/" element={<Navigate to="login" />} />
         <Route path="*" element={<Navigate to="/404" />} />
       </Route>
     </Routes>

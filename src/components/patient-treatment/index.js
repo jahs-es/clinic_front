@@ -1,9 +1,13 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { Box, Container, Grid, makeStyles } from '@material-ui/core'
 import Page from 'src/theme/Page'
-import SearchCombo from '../../common/SearchCombo'
-import PatientCard from '../../patient/PatientCard'
-import { searchPatients, setPatient } from '../../../store/modules/patient/actions/patientAction'
+import SearchCombo from '../common/SearchCombo'
+import PatientCard from '../patient/PatientCard'
+import { useDispatch, useSelector } from 'react-redux'
+import PatientTreatmentList from './PatientTreatmentList'
+import searchPatients from '../../services/patient/search-patient'
+import { setPatient } from '../../store/modules/patient/actions/patientAction'
+import { fetchTreatments } from '../../store/modules/treatment/actions/treatmentAction'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,8 +18,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const DashboardView = () => {
+const PatientTreatmentView = () => {
   const classes = useStyles()
+  const { patientTreatments } = useSelector((state) => state.PatientsState)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchTreatments())
+  }, [])
 
   const emptyPatient = {
     id: '',
@@ -53,6 +63,9 @@ const DashboardView = () => {
             xs
             sm={9}
           >
+            <Box mt={3}>
+              <PatientTreatmentList patientTreatments={patientTreatments} />
+            </Box>
           </Grid>
         </Grid>
       </Container>
@@ -60,4 +73,4 @@ const DashboardView = () => {
   )
 }
 
-export default memo(DashboardView)
+export default memo(PatientTreatmentView)

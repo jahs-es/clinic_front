@@ -7,20 +7,36 @@ import CardActions from '@material-ui/core/CardActions'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-import { useSelector } from 'react-redux';
-import { AddCircle, Home, Phone } from '@material-ui/icons';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-import EditIcon from '@material-ui/icons/Edit';
-import { Divider } from '@material-ui/core';
-import grey from '@material-ui/core/colors/grey';
-import getInitials from '../../utils/getInitials';
+import { AddCircle, ArtTrack, Home, Phone } from '@material-ui/icons'
+import Grid from '@material-ui/core/Grid'
+import EditIcon from '@material-ui/icons/Edit'
+import { Divider } from '@material-ui/core'
+import grey from '@material-ui/core/colors/grey'
+import { useSelector } from 'react-redux'
+import getInitials from '../../utils/getInitials'
+import DialogForm from '../common/DialogForm'
+import PatientDetail from './PatientDetail'
+import PatientTreatmentDetail from '../patient-treatment/PatientTreatmentDetail'
 
 const useStyles = makeStyles(() => ({
   avatar: {
     backgroundColor: grey[300],
   },
 }))
+
+const emptyPatient = {
+  name: '',
+  address: '',
+  email: '',
+  phone: ''
+}
+
+const emptyPatientTreatment = {
+  patient_id: null,
+  treatment_id: null,
+  detail: '',
+  active: true
+}
 
 const PatientCard = () => {
   const classes = useStyles()
@@ -70,16 +86,29 @@ const PatientCard = () => {
       </CardContent>
       <Divider />
       <CardActions disableSpacing>
-        <Tooltip title="Editar">
-          <IconButton aria-label="add to favorites">
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Añadir cita">
-          <IconButton aria-label="add to favorites">
-            <AddCircle />
-          </IconButton>
-        </Tooltip>
+        <DialogForm
+          row={emptyPatient}
+          icon={<AddCircle />}
+          formToShow={<PatientDetail />}
+          toolTipTitle="Crear paciente"
+        />
+        {patient.id !== undefined && patient.id !== ''
+        && (
+        <>
+          <DialogForm
+            row={patient}
+            icon={<EditIcon />}
+            formToShow={<PatientDetail />}
+            toolTipTitle="Editar paciente"
+          />
+          <DialogForm
+            row={emptyPatientTreatment}
+            icon={<ArtTrack />}
+            formToShow={<PatientTreatmentDetail />}
+            toolTipTitle="Crear tratamiento a paciente"
+          />
+        </>
+        )}
       </CardActions>
     </Card>
   )

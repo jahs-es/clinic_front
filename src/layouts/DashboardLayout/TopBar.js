@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import { AppBar, Badge, Box, IconButton, makeStyles, Toolbar } from '@material-ui/core'
+import { AppBar, Box, IconButton, makeStyles, Toolbar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined'
 import InputIcon from '@material-ui/icons/Input'
 import Logo from 'src/theme/Logo'
 import { useDispatch } from 'react-redux'
-import { SignOut } from '../../store/modules/auth/actions/authAction'
+import { signOut } from '../../store/modules/auth/actions/authAction'
+import { resetPatient } from '../../store/modules/patient/actions/patientAction'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -24,13 +24,12 @@ const TopBar = ({
   ...rest
 }) => {
   const classes = useStyles()
-  const [notifications] = useState([])
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const logoutUser = () => {
-    dispatch(SignOut())
+    dispatch(signOut())
+    dispatch(resetPatient())
     navigate('/', { replace: true })
   }
 
@@ -52,13 +51,6 @@ const TopBar = ({
           <MenuIcon />
         </IconButton>
         <IconButton color="inherit">
-          <Badge
-            badgeContent={notifications.length}
-            color="primary"
-            variant="dot"
-          >
-            <NotificationsIcon />
-          </Badge>
         </IconButton>
         <IconButton color="inherit" onClick={logoutUser}>
           <InputIcon />

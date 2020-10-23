@@ -9,9 +9,9 @@ import NavItem from './NavItem'
 
 const items = [
   {
-    href: '/app/dashboard',
+    href: '/app/patient-treatments',
     icon: BarChartIcon,
-    title: 'Inicio'
+    title: 'Tratamientos de paciente'
   },
   {
     href: '/app/patients',
