@@ -1,10 +1,11 @@
-import React, { memo, useEffect } from 'react'
+import React from 'react'
 import { Box, Container, makeStyles } from '@material-ui/core'
 import Page from 'src/theme/Page'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Alert from '@material-ui/lab/Alert'
 import TreatmentList from './TreatmentList'
-import { fetchTreatments } from '../../../store/modules/treatment/actions/treatmentAction';
+import Toolbar from './Toolbar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,15 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TreatmentListView = () => {
   const classes = useStyles()
-  const dispatch = useDispatch()
-
-  const { treatments, isLoading } = useSelector((state) => state.TratmentsState)
-  const getTreatments = () => dispatch(fetchTreatments())
-
-  useEffect(() => {
-    getTreatments()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const { treatments, isLoading, error } = useSelector((state) => state.TreatmentsState)
 
   return (
     <Page
@@ -33,12 +26,15 @@ const TreatmentListView = () => {
       title="Tratamientos"
     >
       <Container maxWidth={false}>
+        <Toolbar />
         <Box mt={3}>
           { isLoading ? <CircularProgress /> : <TreatmentList treatments={treatments} />}
         </Box>
+        { error
+        && <Alert severity="error">Error en la carga ...</Alert>}
       </Container>
     </Page>
   )
 }
 
-export default memo(TreatmentListView)
+export default TreatmentListView

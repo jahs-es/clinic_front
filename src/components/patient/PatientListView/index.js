@@ -1,11 +1,11 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { Box, Container, makeStyles } from '@material-ui/core'
 import Page from 'src/theme/Page'
 import { useSelector } from 'react-redux'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Alert from '@material-ui/lab/Alert'
 import PatientList from './PatientList'
 import Toolbar from './Toolbar'
-import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PatientListView = () => {
   const classes = useStyles()
-  const { patients, isLoading, patientsError } = useSelector((state) => state.PatientsState)
+  const { patients, isLoading, error } = useSelector((state) => state.PatientsState)
 
   return (
     <Page
@@ -30,11 +30,11 @@ const PatientListView = () => {
         <Box mt={3}>
           { isLoading ? <CircularProgress /> : <PatientList patients={patients} />}
         </Box>
-        { patientsError
+        { error
         && <Alert severity="error">Error en la carga ...</Alert>}
       </Container>
     </Page>
   )
 }
 
-export default memo(PatientListView)
+export default PatientListView

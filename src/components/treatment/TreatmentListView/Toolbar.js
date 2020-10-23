@@ -7,8 +7,8 @@ import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { AddCircleOutline } from '@material-ui/icons'
 import DialogForm from '../../common/DialogForm'
-import { fetchPatients } from '../../../store/modules/patient/actions/patientAction'
-import PatientDetail from '../PatientDetail'
+import { fetchTreatments } from '../../../store/modules/treatment/actions/treatmentAction'
+import TreatmentDetail from '../TreatmentDetail'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -20,11 +20,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const emptyPatient = {
+const emptyTreatment = {
   name: '',
-  address: '',
-  email: '',
-  phone: ''
+  active: true
 }
 
 const Toolbar = ({ className, ...rest }) => {
@@ -34,10 +32,10 @@ const Toolbar = ({ className, ...rest }) => {
   // eslint-disable-next-line no-unused-vars
   const [searchQuery, setSearchQuery] = useState({})
 
-  const getPatients = (value) => dispatch(fetchPatients(value))
+  const getTreatments = (value) => dispatch(fetchTreatments(value))
 
   const sendQuery = async (value) => {
-    getPatients(value)
+    getTreatments(value)
   }
 
   const onChange = ({ target: { value } }) => {
@@ -64,9 +62,9 @@ const Toolbar = ({ className, ...rest }) => {
         justifyContent="flex-end"
       >
         <DialogForm
-          row={emptyPatient}
+          row={emptyTreatment}
           icon={<AddCircleOutline />}
-          formToShow={<PatientDetail />}
+          formToShow={<TreatmentDetail />}
         />
       </Box>
       <Box mt={3}>

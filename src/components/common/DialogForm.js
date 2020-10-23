@@ -3,12 +3,14 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import IconButton from '@material-ui/core/IconButton'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
-import React, { cloneElement } from 'react'
+import React, { cloneElement, memo, useState } from 'react'
+import Tooltip from '@material-ui/core/Tooltip'
 
 // eslint-disable-next-line react/prop-types
-const DialogForm = ({ setOpen, open, row, icon, formToShow }) => {
+const DialogForm = ({ row, icon, toolTipTitle, formToShow }) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const [open, setOpen] = useState(false)
 
   const closeDialog = () => {
     setOpen(false)
@@ -21,16 +23,18 @@ const DialogForm = ({ setOpen, open, row, icon, formToShow }) => {
 
   return (
     <div>
-      <IconButton
-        variant="outlined"
-        color="inherit"
-        onClick={(e) => {
-          e.stopPropagation()
-          setOpen(true)
-        }}
-      >
-        {icon}
-      </IconButton>
+      <Tooltip title={toolTipTitle}>
+        <IconButton
+          variant="outlined"
+          color="inherit"
+          onClick={(e) => {
+            e.stopPropagation()
+            setOpen(true)
+          }}
+        >
+          {icon}
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={closeDialog}
@@ -39,7 +43,8 @@ const DialogForm = ({ setOpen, open, row, icon, formToShow }) => {
         maxWidth="md"
         fullWidth
         fullScreen={fullScreen}
-        onExiting={() => {}}
+        onExiting={() => {
+        }}
       >
         <DialogContent>
           {dialogForm}
@@ -49,4 +54,4 @@ const DialogForm = ({ setOpen, open, row, icon, formToShow }) => {
   )
 }
 
-export default DialogForm
+export default memo(DialogForm)

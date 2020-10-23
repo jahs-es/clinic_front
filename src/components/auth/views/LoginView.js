@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
@@ -6,7 +6,7 @@ import { Box, Button, Container, Link, makeStyles, TextField, Typography } from 
 import Page from 'src/theme/Page'
 import { useDispatch, useSelector } from 'react-redux'
 import Alert from '@material-ui/lab/Alert';
-import { SignIn } from '../../../store/modules/auth/actions/authAction'
+import { signIn } from '../../../store/modules/auth/actions/authAction'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,16 +19,17 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginView = () => {
   const classes = useStyles()
+  const currentState = useSelector((state) => state.Auth)
   const navigate = useNavigate()
 
-  const currentState = useSelector((state) => state.Auth)
+  useEffect(() => {
+    if (currentState.isAuthenticated) {
+      navigate('/app/patient-treatments', { replace: true })
+    }
+  })
+
   const dispatch = useDispatch()
-
-  const userLogin = (credentials) => dispatch(SignIn(credentials))
-
-  if (currentState.isAuthenticated) {
-    navigate('/app/dashboard', { replace: true })
-  }
+  const userLogin = (credentials) => dispatch(signIn(credentials))
 
   return (
     <Page
@@ -44,7 +45,7 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'jahs.es@gmail.com',
+              email: 'admin@gmail.com',
               password: 'admin'
             }}
             validationSchema={Yup.object().shape({
@@ -115,8 +116,8 @@ const LoginView = () => {
                   </Button>
                 </Box>
 
-                { currentState.loginError
-                  && <Alert severity="error">{currentState.loginError}</Alert>}
+                { currentState.error
+                  && <Alert severity="error">{currentState.error}</Alert>}
 
                 <Typography
                   color="textSecondary"

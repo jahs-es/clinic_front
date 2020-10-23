@@ -3,21 +3,19 @@ import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField } 
 import { useDispatch, useSelector } from 'react-redux'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import PropTypes from 'prop-types'
 import { createTreatment, updateTreatment } from '../../store/modules/treatment/actions/treatmentAction'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 
 const TreatmentDetail = ({ entity, closeDialog }) => {
   const dispatch = useDispatch()
-  const { isSaving } = useSelector((state) => state.PatientsState)
-
-  const onUpdateSuccess = () => {
-  }
+  const { isLoading } = useSelector((state) => state.TreatmentsState)
 
   const handleSave = (e) => {
     if (e.id === undefined) {
       dispatch(createTreatment(e))
     } else {
-      dispatch(updateTreatment(e, onUpdateSuccess))
+      dispatch(updateTreatment(e))
     }
     closeDialog()
   }
@@ -32,34 +30,29 @@ const TreatmentDetail = ({ entity, closeDialog }) => {
       initialValues={{
         id: entity.id,
         name: entity.name,
-        address: entity.address,
-        email: entity.email,
-        phone: entity.phone
+        active: entity.active
       }}
-
       validationSchema={Yup.object().shape({
-        email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-        name: Yup.string().max(255).required('Name is required'),
-        phone: Yup.string().max(255).required('Phone is required')
+        name: Yup.string().max(255).required('Name is required')
       })}
-
       onSubmit={(values) => {
         handleSave(values)
       }}
     >
       {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          touched,
-          values
-        }) => (
+        errors,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        touched,
+        values,
+        setFieldValue
+      }) => (
         <form onSubmit={handleSubmit}>
           <Card>
             <CardHeader
-              subheader="Valores del paciente"
-              title="Paciente"
+              subheader="Indique los datos y pulse Guardar:"
+              title="Tratamiento"
             />
             <Divider />
             <CardContent>
@@ -81,50 +74,15 @@ const TreatmentDetail = ({ entity, closeDialog }) => {
                   />
                 </Grid>
                 <Grid item md={12} xs={12}>
-
-                  <TextField
-                    error={Boolean(touched.address && errors.address)}
-                    fullWidth
-                    helperText={touched.address && errors.address}
-                    label="Address"
-                    margin="normal"
-                    name="address"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="address"
-                    value={values.address || ''}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    error={Boolean(touched.email && errors.email)}
-                    fullWidth
-                    helperText={touched.email && errors.email}
-                    label="Email Address"
-                    margin="normal"
-                    name="email"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="email"
-                    value={values.email || ''}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item md={6} xs={12}>
-
-                  <TextField
-                    error={Boolean(touched.phone && errors.phone)}
-                    fullWidth
-                    helperText={touched.phone && errors.phone}
-                    label="Phone"
-                    margin="normal"
-                    name="phone"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="text"
-                    value={values.phone || ''}
-                    variant="outlined"
+                  <FormControlLabel
+                    control={(
+                      <Checkbox
+                        name="active"
+                        checked={values.active}
+                        onChange={() => setFieldValue('active', !values.active)}
+                      />
+                    )}
+                    label="Activo"
                   />
                 </Grid>
               </Grid>
@@ -133,19 +91,19 @@ const TreatmentDetail = ({ entity, closeDialog }) => {
             <Box justifyContent="space-between" display="flex" p={2}>
               <Button
                 color="primary"
-                disabled={isSaving}
+                disabled={isLoading}
                 variant="contained"
                 onClick={handleCancel}
               >
-                Cancel
+                Cancelar
               </Button>
               <Button
                 color="primary"
-                disabled={isSaving}
+                disabled={isLoading}
                 type="submit"
                 variant="contained"
               >
-                Save
+                Guardar
               </Button>
             </Box>
           </Card>
@@ -153,11 +111,6 @@ const TreatmentDetail = ({ entity, closeDialog }) => {
       )}
     </Formik>
   )
-}
-
-TreatmentDetail.propTypes = {
-  entity: PropTypes.object.isRequired,
-  closeDialog: PropTypes.func.isRequired
 }
 
 export default TreatmentDetail

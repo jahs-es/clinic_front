@@ -1,21 +1,11 @@
 import React from 'react'
-import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { Box, Card, makeStyles } from '@material-ui/core'
-import EnhancedTableHead from '../../common/table/ExtendedTable'
+import { Box } from '@material-ui/core'
+import EnhancedTable from '../../common/table/ExtendedTable'
 import PatientDetail from '../PatientDetail'
 
-const useStyles = makeStyles((theme) => ({
-  root: {},
-  avatar: {
-    marginRight: theme.spacing(2)
-  }
-}))
-
-const PatientList = ({ className, patients, ...rest }) => {
-  const classes = useStyles()
-
+const PatientList = ({ patients }) => {
   const cells = [
     { id: 'name', type: 'string', disablePadding: true, label: 'Nombre' },
     { id: 'address', type: 'string', disablePadding: true, label: 'Dirección' },
@@ -24,24 +14,18 @@ const PatientList = ({ className, patients, ...rest }) => {
     { id: 'createdAt', type: 'date', disablePadding: true, label: 'Creado' },
   ]
 
-  console.log('Render Results patients ->')
+  console.log('Render PatientList', patients)
 
   return (
-    <Card
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
-      <PerfectScrollbar>
-        <Box minWidth={1050}>
-          <EnhancedTableHead cells={cells} rows={patients} formToShow={<PatientDetail />} />
-        </Box>
-      </PerfectScrollbar>
-    </Card>
+    <PerfectScrollbar>
+      <Box minWidth={1050}>
+        <EnhancedTable cells={cells} rows={patients} formToShow={<PatientDetail />} />
+      </Box>
+    </PerfectScrollbar>
   )
 }
 
 PatientList.propTypes = {
-  className: PropTypes.string,
   patients: PropTypes.array.isRequired
 }
 

@@ -70,7 +70,7 @@ const SearchCombo = ({ className, searchFunction, searchAction, emptyElement, ..
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Indique nombre"
+                  label="Teclee para buscar ..."
                   variant="outlined"
                   onChange={(ev) => {
                     if (ev.target.value !== '' || ev.target.value !== null) {
