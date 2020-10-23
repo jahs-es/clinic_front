@@ -1,4 +1,4 @@
-import React, { cloneElement, memo, useState } from 'react'
+import React, { cloneElement, memo } from 'react'
 import PropTypes from 'prop-types'
 import { Avatar, Box, Checkbox, makeStyles, TableCell, TableRow } from '@material-ui/core'
 import moment from 'moment'
@@ -18,15 +18,12 @@ const getBooleanValue = (value) => {
 }
 
 const RowItem = ({ row, cells, formToShow }) => {
-  const [open, setOpen] = useState(false)
   const classes = useStyles()
 
   const dialogForm = cloneElement(formToShow, {
     entity: row,
     closeDialog: () => {},
   })
-
-  console.log('Render Item -> ', row)
 
   return (
     <TableRow
@@ -72,8 +69,6 @@ const RowItem = ({ row, cells, formToShow }) => {
       ))}
       <TableCell>
         <DialogForm
-          open={open}
-          setOpen={setOpen}
           row={row}
           icon={<EditIcon />}
           formToShow={dialogForm}
