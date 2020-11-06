@@ -1,0 +1,72 @@
+name: Clinic FRONT
+
+on:
+  push:
+    branches:
+      - main
+      - development
+      - CL-001
+    tags:
+      - 'v*'
+      - 'CL-001'
+    paths:
+      - '**'
+      - '.github/workflows/front.yaml'
+  pull_request:
+    branches:
+      - main
+      - development
+    paths:
+      - '**'
+      - '.github/workflows/front.yaml'
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Getting source code
+        uses: actions/checkout@v1
+
+      - name: Use Node.js 12.18.1
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.18.1
+
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Caching
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install
+        run: yarn install
+
+      - name: Test
+        run: yarn test
+
+      - name: Build app
+        if: contains(github.ref, 'tags')
+        run: yarn build
+
+      - name: Getting tag name
+        if: contains(github.ref, 'tags')
+        uses: olegtarasov/get-tag@v1
+        id: tagName
+
+      - name: Docker build & push
+        if: contains(github.ref, 'tags')
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_TAG: ${{ steps.tagName.outputs.tag }}
+        run: |
+          echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
+          docker build -t jahs/clinic-front:$DOCKER_TAG -f Dockerfile clinic-front
+          docker push jahs/clinic-front:$DOCKER_TAG
