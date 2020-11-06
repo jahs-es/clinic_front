@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  nginx:
+    image: jahs/clinic-edge:1.0
+    ports:
+      - "80:80"
+    links:
+      - backend
+      - front
+  backend:
+    image: jahs/clinic-backend:$TAG
+    ports:
+      - "3001:3001"
+  front:
+    image: jahs/clinic-front:$TAG
+    ports:
+      - "8080:80"
