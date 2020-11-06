@@ -14,7 +14,7 @@ export const fetchTreatments = () => {
     dispatch({ type: BEFORE_STATE_TREATMENT })
     try {
       console.log('fetchTreatments')
-      const res = await axios.get(`${API_ROUTE}/treatment`)
+      const res = await axios.get(`${API_ROUTE}/v1/treatment`)
 
       dispatch({ type: FETCH_TREATMENTS, payload: res.data })
     } catch (err) {
@@ -30,7 +30,7 @@ export const createTreatment = (treatmentToCreate) => {
     try {
       treatmentToCreate.id = uuidv4()
 
-      await axios.post(`${API_ROUTE}/treatment`, treatmentToCreate)
+      await axios.post(`${API_ROUTE}/v1/treatment`, treatmentToCreate)
 
       dispatch({
         type: CREATE_TREATMENT_SUCCESS,
@@ -47,7 +47,7 @@ export const updateTreatment = (treatmentToUpdate) => {
     dispatch({ type: BEFORE_STATE_TREATMENT })
 
     try {
-      await axios.put(`${API_ROUTE}/treatment`, treatmentToUpdate)
+      await axios.put(`${API_ROUTE}/v1/treatment`, treatmentToUpdate)
 
       dispatch({
         type: UPDATE_TREATMENT_SUCCESS,

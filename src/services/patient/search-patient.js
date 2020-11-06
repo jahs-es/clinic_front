@@ -11,7 +11,7 @@ export default async function searchPatients(value) {
     // save the new request for cancellation
     tokenSource = axios.CancelToken.source()
 
-    const result = await axios.get(`${API_ROUTE}/patient?name=${value}&email=${value}&address=${value}`, {
+    const result = await axios.get(`${API_ROUTE}/v1/patient?name=${value}&email=${value}&address=${value}`, {
       cancelToken: tokenSource.token
     })
 

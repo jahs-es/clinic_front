@@ -14,7 +14,7 @@ export const signIn = (credentials) => {
   return async (dispatch) => {
     dispatch({ type: BEFORE_STATE })
     try {
-      const res = await axios.post(`${API_ROUTE}/login`, credentials)
+      const res = await axios.post(`${API_ROUTE}/v1/login`, credentials)
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('user_data', JSON.stringify(res.data))
       setAuthorizationToken(res.data.token)
@@ -39,7 +39,7 @@ export const signUp = (newUser) => {
   return async (dispatch) => {
     dispatch({ type: BEFORE_STATE })
     try {
-      await axios.post(`${API_ROUTE}/users`, newUser)
+      await axios.post(`${API_ROUTE}/v1/users`, newUser)
       dispatch({ type: SIGNUP_SUCCESS })
     } catch (err) {
       dispatch({ type: SIGNUP_ERROR, payload: 'Ha habido un error en el registro' })

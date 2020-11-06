@@ -20,7 +20,7 @@ export const fetchPatients = (value) => {
 
     dispatch({ type: BEFORE_STATE_PATIENT })
     try {
-      const res = await axios.get(`${API_ROUTE}/patient?name=${value}&email=${value}&address=${value}`)
+      const res = await axios.get(`${API_ROUTE}/v1/patient?name=${value}&email=${value}&address=${value}`)
 
       dispatch({ type: FETCH_PATIENTS, payload: res.data })
     } catch (err) {
@@ -38,7 +38,7 @@ export const setPatient = (patient) => {
 
       console.log('setPatient ', patient)
       if (patient.id !== '') {
-        const res = await axios.get(`${API_ROUTE}/patient_treatment/${patient.id}`)
+        const res = await axios.get(`${API_ROUTE}/v1/patient_treatment/${patient.id}`)
 
         dispatch({ type: FETCH_PATIENT_TREATMENTS, payload: res.data })
       }
@@ -62,7 +62,7 @@ export const createPatient = (patientToCreate) => {
     try {
       patientToCreate.id = uuidv4()
 
-      await axios.post(`${API_ROUTE}/patient`, patientToCreate)
+      await axios.post(`${API_ROUTE}/v1/patient`, patientToCreate)
 
       dispatch({
         type: CREATE_PATIENT_SUCCESS,
@@ -86,7 +86,7 @@ export const createPatientTreatment = (patientTreatmentToCreate) => {
       patientTreatmentToCreate.treatment_id = selectedTreatment.value
       patientTreatmentToCreate.treatment = selectedTreatment.label
 
-      await axios.post(`${API_ROUTE}/patient_treatment`, patientTreatmentToCreate)
+      await axios.post(`${API_ROUTE}/v1/patient_treatment`, patientTreatmentToCreate)
 
       dispatch({
         type: CREATE_PATIENT_TREATMENT_SUCCESS,
@@ -108,7 +108,7 @@ export const updatePatientTreatment = (patientTreatmentToUpdate) => {
       patientTreatmentToUpdate.treatment_id = selectedTreatment.value
       patientTreatmentToUpdate.treatment = selectedTreatment.label
 
-      await axios.put(`${API_ROUTE}/patient_treatment`, patientTreatmentToUpdate)
+      await axios.put(`${API_ROUTE}/v1/patient_treatment`, patientTreatmentToUpdate)
 
       dispatch({
         type: UPDATE_PATIENT_TREATMENT_SUCCESS,
@@ -123,7 +123,7 @@ export const updatePatientTreatment = (patientTreatmentToUpdate) => {
 export const updatePatient = (patientToUpdate) => {
   return async (dispatch) => {
     try {
-      await axios.put(`${API_ROUTE}/patient`, patientToUpdate)
+      await axios.put(`${API_ROUTE}/v1/patient`, patientToUpdate)
 
       dispatch({
         type: UPDATE_PATIENT_SUCCESS,
