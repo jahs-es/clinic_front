@@ -1,0 +1,7 @@
+version: '3'
+services:
+  clinic-front:
+    build: .
+    image: jahs/clinic-front:$TAG
+    ports:
+      - "80:80"

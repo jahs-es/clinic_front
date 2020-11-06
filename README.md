@@ -1,6 +1,6 @@
 ## Clinic front in React using Redux and React Material 
 
-A complete app done in React using Redux to manage state. 
+A complete app done in React using Redux to manage state. Dockerfile is included.
 
 After sign in, you have access to:
 
@@ -24,7 +24,17 @@ Backend can be found in this [repo](https://github.com/jahs-es/clinic-backend).
 
 - Start the server: `npm run start` or `yarn start`
 
-- Views are on: `localhost:3000`
+## Create new tag
+
+ `TAG=<tag> docker-compose build`
+
+## Launch a tag
+
+ `TAG=<tag> docker-compose up`
+
+## Launch complete solution (included edge and backend)
+
+ `cd docker && TAG=<tag> docker-compose up`
 
 ## Documentation
 

@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  proxy:
+    build: .
+    image: jahs/clinic-edge:$TAG
+    ports:
+      - "443:443"
