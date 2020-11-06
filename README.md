@@ -24,13 +24,17 @@ Backend can be found in this [repo](https://github.com/jahs-es/clinic-backend).
 
 - Start the server: `npm run start` or `yarn start`
 
-## Create new tag <tag>
+## Create new tag
 
- TAG=<tag> docker-compose build
+ `TAG=<tag> docker-compose build`
 
-## Launch a tag <tag>
+## Launch a tag
 
- TAG=<tag> docker-compose up
+ `TAG=<tag> docker-compose up`
+
+## Launch complete solution (included edge and backend)
+
+ `cd docker && TAG=<tag> docker-compose up`
 
 ## Documentation
 
