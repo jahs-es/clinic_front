@@ -23,9 +23,12 @@ const PatientTreatmentView = () => {
   const { patientTreatments } = useSelector((state) => state.PatientsState)
   const dispatch = useDispatch()
 
+  // eslint-disable-next-line
   useEffect(() => {
     dispatch(fetchTreatments())
-  }, [])
+  },
+  // eslint-disable-next-line
+  [])
 
   const emptyPatient = {
     id: '',
