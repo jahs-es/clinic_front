@@ -5,10 +5,8 @@ on:
     branches:
       - main
       - development
-      - CL-001
     tags:
       - 'v*'
-      - 'CL-001'
     paths:
       - '**'
       - '.github/workflows/front.yaml'
@@ -48,8 +46,8 @@ jobs:
       - name: Install
         run: yarn install
 
-      - name: Test
-        run: yarn test
+#      - name: Test
+#        run: yarn test
 
       - name: Build app
         if: contains(github.ref, 'tags')
@@ -60,13 +58,16 @@ jobs:
         uses: olegtarasov/get-tag@v1
         id: tagName
 
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Docker build & push
         if: contains(github.ref, 'tags')
         env:
-          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_TAG: ${{ steps.tagName.outputs.tag }}
         run: |
-          echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
-          docker build -t jahs/clinic-front:$DOCKER_TAG -f Dockerfile clinic-front
+          TAG=$DOCKER_TAG docker-compose build
           docker push jahs/clinic-front:$DOCKER_TAG
