@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
 import API_ROUTE from '../../../../apiRoute'
 import setAuthorizationToken from '../../../../services/auth/authorization'
 import {
@@ -39,10 +40,12 @@ export const signUp = (newUser) => {
   return async (dispatch) => {
     dispatch({ type: BEFORE_STATE })
     try {
-      await axios.post(`${API_ROUTE}/v1/users`, newUser)
+      newUser.id = uuidv4()
+
+      await axios.post(`${API_ROUTE}/v1/user`, newUser)
       dispatch({ type: SIGNUP_SUCCESS })
     } catch (err) {
-      dispatch({ type: SIGNUP_ERROR, payload: 'Ha habido un error en el registro' })
+      dispatch({ type: SIGNUP_ERROR, payload: 'Ya existe un usuario registrado con ese email' })
     }
   }
 }

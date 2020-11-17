@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
@@ -14,6 +14,9 @@ import {
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/theme/Page'
+import {useDispatch, useSelector} from 'react-redux'
+import { signUp } from '../../../store/modules/auth/actions/authAction'
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +29,17 @@ const useStyles = makeStyles((theme) => ({
 
 const RegisterView = () => {
   const classes = useStyles()
+  const currentState = useSelector((state) => state.Auth)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (currentState.isSignedUp) {
+      navigate('/', { replace: true })
+    }
+  })
+
+  const dispatch = useDispatch()
+  const userSignUp = (newUser) => dispatch(signUp(newUser))
 
   return (
     <Page
@@ -55,8 +68,12 @@ const RegisterView = () => {
                 policy: Yup.boolean().oneOf([true], 'Debe aceptar los Términos y condiciones')
               })
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true })
+            onSubmit={(values) => {
+              userSignUp({
+                name: values.name,
+                email: values.email,
+                password: values.password
+              })
             }}
           >
             {({
@@ -157,7 +174,7 @@ const RegisterView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting && currentState.isLoading}
                     fullWidth
                     size="large"
                     type="submit"
@@ -166,6 +183,8 @@ const RegisterView = () => {
                     Registrarse ahora
                   </Button>
                 </Box>
+                { currentState.errorSignUp
+                && <Alert severity="error">{currentState.errorSignUp}</Alert>}
                 <Typography
                   color="textSecondary"
                   variant="body1"

@@ -116,8 +116,8 @@ const LoginView = () => {
                   </Button>
                 </Box>
 
-                { currentState.error
-                  && <Alert severity="error">{currentState.error}</Alert>}
+                { currentState.errorLogin
+                  && <Alert severity="error">{currentState.errorLogin}</Alert>}
 
                 <Typography
                   color="textSecondary"
