@@ -36,7 +36,7 @@ export const signOut = () => {
   }
 }
 
-export const signUp = (newUser) => {
+export const signUp = (navigate, newUser) => {
   return async (dispatch) => {
     dispatch({ type: BEFORE_STATE })
     try {
@@ -44,6 +44,8 @@ export const signUp = (newUser) => {
 
       await axios.post(`${API_ROUTE}/v1/user`, newUser)
       dispatch({ type: SIGNUP_SUCCESS })
+
+      navigate('/', { replace: true })
     } catch (err) {
       dispatch({ type: SIGNUP_ERROR, payload: 'Ya existe un usuario registrado con ese email' })
     }

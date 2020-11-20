@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
@@ -11,20 +11,20 @@ import {
   Link,
   TextField,
   Typography,
-  makeStyles
+  makeStyles,
 } from '@material-ui/core'
 import Page from 'src/theme/Page'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import Alert from '@material-ui/lab/Alert'
 import { signUp } from '../../../store/modules/auth/actions/authAction'
-import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
     height: '100%',
     paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
-  }
+    paddingTop: theme.spacing(3),
+  },
 }))
 
 const RegisterView = () => {
@@ -32,14 +32,8 @@ const RegisterView = () => {
   const currentState = useSelector((state) => state.Auth)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (currentState.isSignedUp) {
-      navigate('/', { replace: true })
-    }
-  })
-
   const dispatch = useDispatch()
-  const userSignUp = (newUser) => dispatch(signUp(newUser))
+  const userSignUp = (newUser) => dispatch(signUp(navigate, newUser))
 
   return (
     <Page
@@ -183,7 +177,7 @@ const RegisterView = () => {
                     Registrarse ahora
                   </Button>
                 </Box>
-                { currentState.errorSignUp
+                {currentState.errorSignUp
                 && <Alert severity="error">{currentState.errorSignUp}</Alert>}
                 <Typography
                   color="textSecondary"

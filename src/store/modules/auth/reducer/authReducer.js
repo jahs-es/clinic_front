@@ -10,7 +10,6 @@ import {
 
 export const initState = {
   isAuthenticated: false,
-  isSignedUp: false,
   currentUser: {},
   isLoading: false,
   errorSignUp: null,
@@ -28,14 +27,12 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         isLoading: false,
-        isSignedUp: true,
         errorSignUp: null
       }
     case SIGNUP_ERROR:
       return {
         ...state,
         isLoading: false,
-        isSignedUp: false,
         errorSignUp: action.payload
       }
     case LOGIN_SUCCESS:
