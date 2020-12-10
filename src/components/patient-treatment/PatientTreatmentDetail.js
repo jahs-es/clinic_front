@@ -22,10 +22,10 @@ const PatientTreatmentDetail = ({ entity, closeDialog }) => {
     }
   })
 
-  const getSelectedOption = (entity) => {
+  const getSelectedOption = (treatment) => {
     return {
-      value: entity.treatment_id,
-      label: entity.treatment
+      value: treatment.treatment_id,
+      label: treatment.treatment
     }
   }
 
@@ -64,15 +64,15 @@ const PatientTreatmentDetail = ({ entity, closeDialog }) => {
       }}
     >
       {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          touched,
-          values,
-          setFieldValue,
-          setFieldTouched
-        }) => (
+        errors,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        touched,
+        values,
+        setFieldValue,
+        setFieldTouched
+      }) => (
         <form onSubmit={handleSubmit}>
           <Card>
             <CardHeader

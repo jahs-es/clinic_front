@@ -1,8 +1,7 @@
 import React from 'react'
 import { Route, Navigate } from 'react-router-dom'
 
-// eslint-disable-next-line react/prop-types
-const SecuredRoute = ({ component: Component, redirectTo, isAuth, path, ...props }) => {
+const SecuredRoute = ({ component: Component, redirectTo, isAuth, path }) => {
   if (!isAuth) {
     return <Navigate to={redirectTo} />
   }

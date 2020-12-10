@@ -1,9 +1,9 @@
 import React, { memo, useEffect } from 'react'
-import { Box, Container, Grid, makeStyles } from '@material-ui/core'
+import { Box, Container, Grid, makeStyles, Typography } from '@material-ui/core'
 import Page from 'src/theme/Page'
+import { useDispatch, useSelector } from 'react-redux'
 import SearchCombo from '../common/SearchCombo'
 import PatientCard from '../patient/PatientCard'
-import { useDispatch, useSelector } from 'react-redux'
 import PatientTreatmentList from './PatientTreatmentList'
 import searchPatients from '../../services/patient/search-patient'
 import { setPatient } from '../../store/modules/patient/actions/patientAction'
@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
+  },
+  typo: {
+    paddingBottom: theme.spacing(3)
   }
 }))
 
@@ -58,6 +61,13 @@ const PatientTreatmentView = () => {
             sm={3}
           >
             <Box mt={3}>
+              <Typography
+                color="textPrimary"
+                variant="h3"
+                className={classes.typo}
+              >
+                Ficha paciente
+              </Typography>
               <PatientCard />
             </Box>
           </Grid>
@@ -67,6 +77,13 @@ const PatientTreatmentView = () => {
             sm={9}
           >
             <Box mt={3}>
+              <Typography
+                color="textPrimary"
+                variant="h3"
+                className={classes.typo}
+              >
+                Tratamientos del paciente
+              </Typography>
               <PatientTreatmentList patientTreatments={patientTreatments} />
             </Box>
           </Grid>

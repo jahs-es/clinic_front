@@ -3,9 +3,9 @@ import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField } 
 import { useDispatch, useSelector } from 'react-redux'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { createTreatment, updateTreatment } from '../../store/modules/treatment/actions/treatmentAction'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import { createTreatment, updateTreatment } from '../../store/modules/treatment/actions/treatmentAction'
 
 const TreatmentDetail = ({ entity, closeDialog }) => {
   const dispatch = useDispatch()

@@ -43,7 +43,7 @@ const PatientCard = () => {
   const { patient } = useSelector((state) => state.PatientsState)
 
   return (
-    <Card>
+    <Card elevation={5}>
       <CardHeader
         avatar={(
           <Avatar
@@ -59,7 +59,7 @@ const PatientCard = () => {
       />
       <Divider />
       <CardContent>
-        <Grid container direction="row" justify={'flex-start'} alignItems={'center'}>
+        <Grid container direction="row" justify="flex-start" alignItems="center">
           <Grid item>
             <IconButton disabled>
               <Home />
@@ -71,7 +71,7 @@ const PatientCard = () => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container direction="row" justify={'flex-start'} alignItems={'center'}>
+        <Grid container direction="row" justify="flex-start" alignItems="center">
           <Grid item>
             <IconButton disabled>
               <Phone />

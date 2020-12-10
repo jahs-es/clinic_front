@@ -45,53 +45,53 @@ const SearchCombo = ({ className, searchFunction, searchAction, emptyElement, ..
     }
   }, [open])
 
-  const inputStyle = { WebkitBoxShadow: "0 0 0 1000px white inset" }
+  const inputStyle = { WebkitBoxShadow: '0 0 0 1000px white inset' }
 
   return (
     <div
       className={clsx(classes.root, className)}
       {...rest}
     >
-            <Autocomplete
-              selectOnFocus
-              id="search-patient"
-              open={open}
-              onOpen={() => {
-                setOpen(true)
-              }}
-              onClose={() => {
-                setOpen(false)
-              }}
-              onChange={(event, value) => onPatientSelected(value)}
-              getOptionSelected={(option, value) => option.name === value.name}
-              getOptionLabel={(option) => option.name}
-              options={options}
-              loading={loading}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Teclee para buscar ..."
-                  variant="outlined"
-                  onChange={(ev) => {
-                    if (ev.target.value !== '' || ev.target.value !== null) {
-                      search(ev.target.value)
-                    }
-                  }}
-                  InputProps={{
-                    ...params.InputProps,
-                    endAdornment: (
-                      <>
-                        {loading ? (
-                          <CircularProgress color="inherit" size={20} />
-                        ) : null}
-                        {params.InputProps.endAdornment}
-                      </>
-                    ),
-                    style: inputStyle
-                  }}
-                />
-              )}
-            />
+      <Autocomplete
+        selectOnFocus
+        id="search-patient"
+        open={open}
+        onOpen={() => {
+          setOpen(true)
+        }}
+        onClose={() => {
+          setOpen(false)
+        }}
+        onChange={(event, value) => onPatientSelected(value)}
+        getOptionSelected={(option, value) => option.name === value.name}
+        getOptionLabel={(option) => option.name}
+        options={options}
+        loading={loading}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Teclee para buscar ..."
+            variant="outlined"
+            onChange={(ev) => {
+              if (ev.target.value !== '' || ev.target.value !== null) {
+                search(ev.target.value)
+              }
+            }}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <>
+                  {loading ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : null}
+                  {params.InputProps.endAdornment}
+                </>
+              ),
+              style: inputStyle
+            }}
+          />
+        )}
+      />
     </div>
   )
 }

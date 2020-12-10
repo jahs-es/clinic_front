@@ -19,7 +19,6 @@ export const initState = {
 }
 
 export const patientsState = (state = initState, action) => {
-
   const { payload, type } = action
   switch (type) {
     case BEFORE_STATE_PATIENT:

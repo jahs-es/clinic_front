@@ -8,6 +8,7 @@
     "start": "react-scripts start",
     "build": "NODE_ENV=production react-scripts build",
     "test": "react-scripts test",
+    "eslint": "eslint src",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

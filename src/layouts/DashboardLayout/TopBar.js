@@ -50,8 +50,7 @@ const TopBar = ({
         >
           <MenuIcon />
         </IconButton>
-        <IconButton color="inherit">
-        </IconButton>
+        <IconButton color="inherit" />
         <IconButton color="inherit" onClick={logoutUser}>
           <InputIcon />
         </IconButton>

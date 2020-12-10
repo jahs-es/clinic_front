@@ -143,23 +143,23 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} seleccionados
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-        </Typography>
+        <Typography className={classes.title} variant="h6" id="tableTitle" component="div" />
       )}
 
-      {/*{numSelected > 0 ? (*/}
-      {/*  <Tooltip title="Delete">*/}
-      {/*    <IconButton aria-label="delete">*/}
-      {/*      <DeleteIcon />*/}
-      {/*    </IconButton>*/}
-      {/*  </Tooltip>*/}
-      {/*) : (*/}
-      {/*  <Tooltip title="Filter list">*/}
-      {/*    <IconButton aria-label="filter list">*/}
-      {/*      <FilterListIcon />*/}
-      {/*    </IconButton>*/}
-      {/*  </Tooltip>*/}
-      {/*)}*/}
+      {/* {numSelected > 0 ? ( */}
+      {/* <Tooltip title="Delete"> */}
+      {/*    <IconButton aria-label="delete"> */}
+      {/*      <DeleteIcon /> */}
+      {/*    </IconButton> */}
+      {/*  </Tooltip> */}
+      {/* ) : ( */}
+      {/*  <Tooltip title="Filter list"> */}
+      {/*    <IconButton aria-label="filter list"> */}
+      {/*      <FilterListIcon /> */}
+      {/*    </IconButton> */}
+      {/*  </Tooltip> */}
+      {/* )} */}
+
     </Toolbar>
   )
 }
@@ -277,6 +277,7 @@ const EnhancedTable = ({ rows, cells, formToShow }) => {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                // eslint-disable-next-line no-unused-vars
                 .map((row, index) => {
                   // const isItemSelected = isSelected(row.name)
                   // const labelId = `enhanced-table-checkbox-${index}`

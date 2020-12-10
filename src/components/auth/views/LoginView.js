@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 import { Box, Button, Container, Link, makeStyles, TextField, Typography } from '@material-ui/core'
 import Page from 'src/theme/Page'
 import { useDispatch, useSelector } from 'react-redux'
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@material-ui/lab/Alert'
 import { signIn } from '../../../store/modules/auth/actions/authAction'
 
 const useStyles = makeStyles((theme) => ({

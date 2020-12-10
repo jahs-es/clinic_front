@@ -1,6 +1,6 @@
-import Select from 'react-select';
-import React from 'react';
-import PropTypes from 'prop-types';
+import Select from 'react-select'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const CustomSelect = ({
   id, title, value, onChange, onBlur, options, errors, touched

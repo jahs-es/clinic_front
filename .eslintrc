@@ -23,6 +23,10 @@
     }
   },
   "rules": {
+    "react/jsx-one-expression-per-line": "off",
+    "react/destructuring-assignement": "off",
+    "react/prop-types": "off",
+    "object-curly-newline": "off",
     "arrow-body-style": "off",
     "comma-dangle": "off",
     "import/no-unresolved": "off",
