@@ -13,6 +13,7 @@ const PatientDetail = ({ entity, closeDialog }) => {
     if (e.id === undefined) {
       dispatch(createPatient(e))
     } else {
+      e.avatar_path = entity.avatar_path
       dispatch(updatePatient(e))
     }
     closeDialog()

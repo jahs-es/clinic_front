@@ -67,7 +67,8 @@ export const patientsState = (state = initState, action) => {
             name: payload.name,
             email: payload.email,
             address: payload.address,
-            phone: payload.phone
+            phone: payload.phone,
+            avatar_path: payload.avatar_path
           } : patient)),
         patient: payload,
         error: null,
