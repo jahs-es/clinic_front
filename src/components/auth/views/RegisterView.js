@@ -106,6 +106,7 @@ const RegisterView = () => {
                   onChange={handleChange}
                   value={values.name}
                   variant="outlined"
+                  autoFocus
                 />
                 <TextField
                   error={Boolean(touched.email && errors.email)}

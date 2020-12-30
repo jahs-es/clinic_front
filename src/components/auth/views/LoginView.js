@@ -45,8 +45,8 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'admin@gmail.com',
-              password: 'admin'
+              email: '',
+              password: ''
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Debe ser un email válido').max(255).required('Email es requerido'),
@@ -89,6 +89,7 @@ const LoginView = () => {
                   type="email"
                   value={values.email}
                   variant="outlined"
+                  autoFocus
                 />
                 <TextField
                   error={Boolean(touched.password && errors.password)}
