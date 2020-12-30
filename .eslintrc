@@ -37,6 +37,7 @@
     "no-console": "off",
     "no-param-reassign": "off",
     "no-plusplus": "off",
+    "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-filename-extension": "off",
